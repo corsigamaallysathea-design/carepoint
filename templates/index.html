@@ -1,1 +1,1214 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102F3B">
+
+    <title>CarePoint | Clinical Management System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- =========================================
+     SVG MEDICAL ICON LIBRARY
+========================================= -->
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     class="svg-library">
+
+    <symbol id="i-dashboard" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+    </symbol>
+
+    <symbol id="i-patients" viewBox="0 0 24 24">
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M2 21v-3a7 7 0 0 1 14 0v3"/>
+        <path d="M17 3a4 4 0 0 1 0 8M19 14a5 5 0 0 1 3 5v2"/>
+    </symbol>
+
+    <symbol id="i-doctors" viewBox="0 0 24 24">
+        <path d="M4 3v7a6 6 0 0 0 12 0V3"/>
+        <path d="M10 16v2a4 4 0 0 0 8 0v-4"/>
+        <circle cx="18" cy="11" r="3"/>
+        <path d="M3 3h3M14 3h3"/>
+    </symbol>
+
+    <symbol id="i-appointments" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="16" rx="2"/>
+        <path d="M7 2v6M17 2v6M3 11h18"/>
+        <path d="M8 16h3M15 16h1"/>
+    </symbol>
+
+    <symbol id="i-heart" viewBox="0 0 24 24">
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>
+    </symbol>
+
+    <symbol id="i-pulse" viewBox="0 0 24 24">
+        <path d="M2 12h5l3-8 4 16 3-8h5"/>
+    </symbol>
+
+    <symbol id="i-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 6v6l4 2"/>
+    </symbol>
+
+    <symbol id="i-check" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="m8 12 3 3 5-6"/>
+    </symbol>
+
+    <symbol id="i-cancel" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="m9 9 6 6m0-6-6 6"/>
+    </symbol>
+
+    <symbol id="i-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14"/>
+    </symbol>
+
+    <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="6.5"/>
+        <path d="m16 16 5 5"/>
+    </symbol>
+
+    <symbol id="i-eye" viewBox="0 0 24 24">
+        <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/>
+        <circle cx="12" cy="12" r="3"/>
+    </symbol>
+
+    <symbol id="i-edit" viewBox="0 0 24 24">
+        <path d="m4 16-1 5 5-1L21 7l-5-5Z"/>
+        <path d="m13 5 6 6"/>
+    </symbol>
+
+    <symbol id="i-trash" viewBox="0 0 24 24">
+        <path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"/>
+    </symbol>
+
+    <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path d="M20 7a9 9 0 1 0 1 9M20 2v6h-6"/>
+    </symbol>
+
+    <symbol id="i-moon" viewBox="0 0 24 24">
+        <path d="M21 13A9 9 0 0 1 11 3a9 9 0 1 0 10 10Z"/>
+    </symbol>
+
+    <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+    </symbol>
+
+    <symbol id="i-menu" viewBox="0 0 24 24">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+    </symbol>
+
+    <symbol id="i-close" viewBox="0 0 24 24">
+        <path d="m6 6 12 12M18 6 6 18"/>
+    </symbol>
+
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path d="M4 12h16m-6-6 6 6-6 6"/>
+    </symbol>
+
+    <symbol id="i-list" viewBox="0 0 24 24">
+        <path d="M8 5h13M8 12h13M8 19h13"/>
+        <circle cx="3" cy="5" r="1"/>
+        <circle cx="3" cy="12" r="1"/>
+        <circle cx="3" cy="19" r="1"/>
+    </symbol>
+
+    <symbol id="i-shield" viewBox="0 0 24 24">
+        <path d="m12 2 9 4v6c0 5-5 9-9 10-4-1-9-5-9-10V6Z"/>
+        <path d="m8 12 3 3 5-6"/>
+    </symbol>
+
+    <symbol id="i-file" viewBox="0 0 24 24">
+        <rect x="5" y="4" width="14" height="18" rx="2"/>
+        <rect x="8" y="2" width="8" height="4" rx="1"/>
+        <path d="M9 11h6M9 15h6M9 18h4"/>
+    </symbol>
+
+    <symbol id="i-mail" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="14" rx="2"/>
+        <path d="m3 7 9 7 9-7"/>
+    </symbol>
+
+    <symbol id="i-phone" viewBox="0 0 24 24">
+        <path d="M7 3H4c-1 0-2 1-2 3 0 9 7 16 16 16 2 0 3-1 3-2v-3l-5-2-2 3a13 13 0 0 1-8-8l3-2Z"/>
+    </symbol>
+
+    <symbol id="i-database" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="5" rx="9" ry="3"/>
+        <path d="M3 5v14c0 4 18 4 18 0V5M3 12c0 4 18 4 18 0"/>
+    </symbol>
+
+    <symbol id="i-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 11v6M12 7v1"/>
+    </symbol>
+
+</svg>
+
+
+<!-- =========================================
+     APPLICATION LAYOUT
+========================================= -->
+
+<div class="app-layout">
+
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <a class="brand" href="#dashboard">
+
+            <div class="brand-logo">
+                <svg viewBox="0 0 48 48">
+                    <rect width="48" height="48"
+                          rx="13" fill="#168C89"/>
+
+                    <path d="M19 8h10v11h11v10H29v11H19V29H8V19h11z"
+                          fill="white"/>
+
+                    <path class="logo-pulse"
+                          d="M5 24h13l4-8 6 16 4-8h11"
+                          fill="none"
+                          stroke="#168C89"
+                          stroke-width="2.5"
+                          stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            <div class="brand-text">
+                <strong>CarePoint</strong>
+                <small>CLINICAL SYSTEM</small>
+            </div>
+
+        </a>
+
+        <div class="workspace-label">
+            CLINICAL WORKSPACE
+        </div>
+
+        <nav class="navigation" id="navigation">
+
+            <button class="nav-item active"
+                    data-page="dashboard">
+
+                <svg class="icon">
+                    <use href="#i-dashboard"/>
+                </svg>
+
+                <span>Overview</span>
+                <span class="nav-indicator"></span>
+
+            </button>
+
+            <button class="nav-item"
+                    data-page="patients">
+
+                <svg class="icon">
+                    <use href="#i-patients"/>
+                </svg>
+
+                <span>Patient Records</span>
+                <span class="nav-indicator"></span>
+
+            </button>
+
+            <button class="nav-item"
+                    data-page="doctors">
+
+                <svg class="icon">
+                    <use href="#i-doctors"/>
+                </svg>
+
+                <span>Medical Doctors</span>
+                <span class="nav-indicator"></span>
+
+            </button>
+
+            <button class="nav-item"
+                    data-page="appointments">
+
+                <svg class="icon">
+                    <use href="#i-appointments"/>
+                </svg>
+
+                <span>Appointments</span>
+                <span class="nav-indicator"></span>
+
+            </button>
+
+        </nav>
+
+        <div class="sidebar-decoration">
+
+            <svg viewBox="0 0 220 110">
+
+                <circle cx="110" cy="55" r="43"
+                        fill="none" stroke="#ffffff"
+                        opacity=".06"/>
+
+                <circle cx="110" cy="55" r="33"
+                        fill="none" stroke="#ffffff"
+                        opacity=".06"/>
+
+                <path class="heartbeat-line"
+                      d="M5 55h48l12-20 15 43 17-57 18 49 13-15h87"
+                      fill="none"
+                      stroke="#64C8BE"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+
+            </svg>
+
+            <p>Compassion. Care. Excellence.</p>
+
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <div class="database-status">
+
+                <div class="database-icon">
+                    <svg class="icon">
+                        <use href="#i-database"/>
+                    </svg>
+                </div>
+
+                <div>
+                    <strong>Cloud Database</strong>
+
+                    <small id="connectionStatus">
+                        Connecting...
+                    </small>
+                </div>
+
+                <span class="connection-dot"
+                      id="connectionDot"></span>
+
+            </div>
+
+            <div class="sidebar-copyright">
+                CarePoint Clinical Edition
+                <br>
+                &copy; 2026
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN WORKSPACE -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div class="header-left">
+
+                <button class="icon-button menu-button"
+                        id="menuButton"
+                        aria-label="Open navigation">
+
+                    <svg class="icon">
+                        <use href="#i-menu"/>
+                    </svg>
+
+                </button>
+
+                <div>
+
+                    <div class="breadcrumb">
+                        Clinical Workspace
+                        <span>/</span>
+                        <span id="breadcrumb">Overview</span>
+                    </div>
+
+                    <h1 id="pageTitle">
+                        Dashboard Overview
+                    </h1>
+
+                </div>
+
+            </div>
+
+            <div class="header-right">
+
+                <div class="current-date">
+
+                    <svg class="icon">
+                        <use href="#i-appointments"/>
+                    </svg>
+
+                    <span id="currentDate"></span>
+
+                </div>
+
+                <button class="icon-button"
+                        id="themeButton"
+                        title="Switch appearance"
+                        aria-label="Switch appearance">
+
+                    <svg class="icon">
+                        <use id="themeIcon" href="#i-moon"/>
+                    </svg>
+
+                </button>
+
+                <button class="icon-button"
+                        id="refreshButton"
+                        title="Refresh records"
+                        aria-label="Refresh records">
+
+                    <svg class="icon">
+                        <use href="#i-refresh"/>
+                    </svg>
+
+                </button>
+
+                <div class="header-divider"></div>
+
+                <div class="admin-profile">
+
+                    <div class="admin-avatar">
+                        <svg class="icon">
+                            <use href="#i-doctors"/>
+                        </svg>
+                    </div>
+
+                    <div class="admin-details">
+                        <strong>Clinic Workspace</strong>
+                        <small>Management Portal</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             MEDICAL HERO BANNER
+        ====================================== -->
+
+        <section class="hero-banner">
+
+            <div class="hero-content">
+
+                <div class="hero-eyebrow">
+
+                    <span class="hero-dot"></span>
+
+                    CAREPOINT HEALTHCARE
+
+                </div>
+
+                <h2 id="heroTitle">
+                    Excellence in patient care.
+                </h2>
+
+                <p id="heroDescription">
+                    A connected clinical workspace for managing
+                    patient records, healthcare professionals,
+                    and medical appointments.
+                </p>
+
+                <button class="btn btn-primary"
+                        id="heroAction">
+
+                    <svg class="icon">
+                        <use href="#i-plus"/>
+                    </svg>
+
+                    <span id="heroActionText">
+                        New Appointment
+                    </span>
+
+                </button>
+
+                <div class="hero-tags">
+
+                    <span>
+                        <svg class="icon">
+                            <use href="#i-heart"/>
+                        </svg>
+                        Patient-centered
+                    </span>
+
+                    <span>
+                        <svg class="icon">
+                            <use href="#i-pulse"/>
+                        </svg>
+                        Connected healthcare
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROFESSIONAL MEDICAL SVG ART -->
+
+            <div class="hero-art">
+
+                <svg viewBox="0 0 430 280"
+                     role="img"
+                     aria-label="Doctor and nurse in clinical uniforms">
+
+                    <defs>
+
+                        <linearGradient id="artBackground"
+                                        x1="0" y1="0"
+                                        x2="1" y2="1">
+
+                            <stop offset="0%"
+                                  stop-color="#D1E8E4"/>
+
+                            <stop offset="100%"
+                                  stop-color="#B6DCD7"/>
+
+                        </linearGradient>
+
+                        <linearGradient id="coatGradient"
+                                        x1="0" y1="0"
+                                        x2="1" y2="1">
+
+                            <stop offset="0%"
+                                  stop-color="#FFFFFF"/>
+
+                            <stop offset="100%"
+                                  stop-color="#DCEBED"/>
+
+                        </linearGradient>
+
+                    </defs>
+
+                    <circle cx="230" cy="144" r="123"
+                            fill="url(#artBackground)"/>
+
+                    <circle cx="230" cy="144" r="105"
+                            fill="none" stroke="#FFFFFF"
+                            opacity=".55"/>
+
+                    <circle cx="230" cy="144" r="86"
+                            fill="none" stroke="#FFFFFF"
+                            opacity=".4"/>
+
+                    <!-- Medical cross -->
+
+                    <g class="floating-object">
+
+                        <rect x="335" y="20"
+                              width="55" height="55"
+                              rx="15" fill="#FFFFFF"/>
+
+                        <path d="M357 30h11v12h12v11h-12v12h-11V53h-12V42h12z"
+                              fill="#4DA69E"/>
+
+                    </g>
+
+                    <!-- Medical ECG -->
+
+                    <g class="floating-object delay-one">
+
+                        <rect x="12" y="65"
+                              width="96" height="55"
+                              rx="12" fill="#FFFFFF"/>
+
+                        <path d="M22 93h18l8-14 11 29 10-15h28"
+                              stroke="#48A49C"
+                              stroke-width="2.5"
+                              fill="none"
+                              stroke-linejoin="round"/>
+
+                    </g>
+
+                    <!-- Nurse -->
+
+                    <g transform="translate(255 67)">
+
+                        <path d="M0 213v-85Q0 95 44 90Q90 95 90 128v85Z"
+                              fill="#4E9997"/>
+
+                        <path d="m24 96 20 23 21-23"
+                              fill="none"
+                              stroke="#D8EDEA"
+                              stroke-width="3"/>
+
+                        <rect x="32" y="70"
+                              width="25" height="30"
+                              rx="7" fill="#CB987F"/>
+
+                        <ellipse cx="44" cy="45"
+                                 rx="29" ry="36"
+                                 fill="#E6B69C"/>
+
+                        <path d="M15 43Q4 2 44 2Q83 2 74 45L63 23Q44 37 20 26Z"
+                              fill="#304650"/>
+
+                        <circle cx="34" cy="47" r="2"
+                                fill="#304650"/>
+
+                        <circle cx="54" cy="47" r="2"
+                                fill="#304650"/>
+
+                        <path d="M36 62q8 6 16 0"
+                              fill="none"
+                              stroke="#A66F60"
+                              stroke-width="2"/>
+
+                        <rect x="59" y="132"
+                              width="22" height="29"
+                              rx="3" fill="#E2F1EF"/>
+
+                        <path d="M65 142h10m-5-5v10"
+                              stroke="#4E9997"
+                              stroke-width="2.5"/>
+
+                        <path d="M9 166h21v24H9Z"
+                              fill="#438886"/>
+
+                    </g>
+
+                    <!-- Doctor -->
+
+                    <g transform="translate(110 20)">
+
+                        <path d="M0 260v-95Q0 120 65 112Q130 120 130 165v95Z"
+                              fill="url(#coatGradient)"
+                              stroke="#BFD8DA"/>
+
+                        <path d="m47 116 18 25 18-25 17 144H30Z"
+                              fill="#367D88"/>
+
+                        <rect x="49" y="85"
+                              width="32" height="35"
+                              rx="8" fill="#D4A38C"/>
+
+                        <ellipse cx="65" cy="53"
+                                 rx="35" ry="44"
+                                 fill="#EEC1A7"/>
+
+                        <path d="M31 53Q13 0 65 1Q116 1 100 50L86 25Q63 40 33 32Z"
+                              fill="#263F49"/>
+
+                        <circle cx="53" cy="56"
+                                r="2.5" fill="#263F49"/>
+
+                        <circle cx="77" cy="56"
+                                r="2.5" fill="#263F49"/>
+
+                        <path d="M55 75q10 7 20 0"
+                              fill="none"
+                              stroke="#AD7567"
+                              stroke-width="2"/>
+
+                        <!-- Coat lapels -->
+
+                        <path d="m45 115-25 40 19 11-11 23 37 71-20-145Z"
+                              fill="#F8FCFC"
+                              stroke="#CEDFE2"/>
+
+                        <path d="m85 115 25 40-19 11 11 23-37 71 20-145Z"
+                              fill="#F8FCFC"
+                              stroke="#CEDFE2"/>
+
+                        <!-- Stethoscope -->
+
+                        <path d="M34 128v36a18 18 0 0 0 36 0v-26M52 182v20q0 18 27 18"
+                              fill="none"
+                              stroke="#345662"
+                              stroke-width="4"
+                              stroke-linecap="round"/>
+
+                        <circle cx="84" cy="220" r="9"
+                                fill="#345662"/>
+
+                        <circle cx="84" cy="220" r="5"
+                                fill="#B8D3D6"/>
+
+                        <!-- Medical ID -->
+
+                        <rect x="94" y="174"
+                              width="25" height="34"
+                              rx="3" fill="#D7E9E9"/>
+
+                        <path d="M100 185h13m-6.5-6.5v13"
+                              stroke="#4A9995"
+                              stroke-width="2.5"/>
+
+                        <path d="M100 198h13"
+                              stroke="#83B2B3"
+                              stroke-width="2"/>
+
+                    </g>
+
+                    <!-- Medical clipboard -->
+
+                    <g class="floating-object delay-two"
+                       transform="translate(24 183) rotate(-8)">
+
+                        <rect width="65" height="82"
+                              rx="9" fill="#FFFFFF"/>
+
+                        <rect x="19" y="-5"
+                              width="27" height="13"
+                              rx="4" fill="#71B4AF"/>
+
+                        <path d="M15 25h35M15 38h35M15 51h25M15 64h30"
+                              stroke="#A7C9C8"
+                              stroke-width="3"
+                              stroke-linecap="round"/>
+
+                    </g>
+
+                    <!-- Medicine capsule -->
+
+                    <g class="floating-object delay-one"
+                       transform="translate(360 173) rotate(35)">
+
+                        <rect width="23" height="49"
+                              rx="12" fill="#FFFFFF"/>
+
+                        <path d="M0 25h23v12a11.5 11.5 0 0 1-23 0Z"
+                              fill="#69B7AD"/>
+
+                    </g>
+
+                </svg>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             DASHBOARD PAGE
+        ====================================== -->
+
+        <section class="page-section active"
+                 id="dashboardPage">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">CLINICAL OVERVIEW</span>
+                    <h2>Healthcare at a glance</h2>
+                    <p>Monitor your clinic's current records.</p>
+                </div>
+
+                <span class="live-label">
+                    <span></span>
+                    Database overview
+                </span>
+
+            </div>
+
+            <div class="stats-grid" id="statsGrid"></div>
+
+            <div class="dashboard-grid">
+
+                <section class="panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h3>Appointment Distribution</h3>
+                            <p>Overview by appointment status</p>
+                        </div>
+
+                        <div class="panel-icon">
+                            <svg class="icon">
+                                <use href="#i-pulse"/>
+                            </svg>
+                        </div>
+
+                    </div>
+
+                    <div class="distribution-layout">
+
+                        <div class="donut-chart"
+                             id="appointmentChart">
+
+                            <div class="donut-center">
+                                <strong id="chartTotal">0</strong>
+                                <small>Appointments</small>
+                            </div>
+
+                        </div>
+
+                        <div class="chart-legend"
+                             id="chartLegend"></div>
+
+                    </div>
+
+                </section>
+
+                <section class="panel quick-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h3>Quick Actions</h3>
+                            <p>Access frequently used tasks</p>
+                        </div>
+
+                    </div>
+
+                    <button class="quick-action"
+                            data-add="patients">
+
+                        <span class="quick-icon teal">
+                            <svg class="icon">
+                                <use href="#i-patients"/>
+                            </svg>
+                        </span>
+
+                        <span>
+                            <strong>Register Patient</strong>
+                            <small>Create a patient record</small>
+                        </span>
+
+                        <svg class="icon quick-arrow">
+                            <use href="#i-arrow"/>
+                        </svg>
+
+                    </button>
+
+                    <button class="quick-action"
+                            data-add="doctors">
+
+                        <span class="quick-icon blue">
+                            <svg class="icon">
+                                <use href="#i-doctors"/>
+                            </svg>
+                        </span>
+
+                        <span>
+                            <strong>Add Medical Doctor</strong>
+                            <small>Manage medical professionals</small>
+                        </span>
+
+                        <svg class="icon quick-arrow">
+                            <use href="#i-arrow"/>
+                        </svg>
+
+                    </button>
+
+                    <button class="quick-action"
+                            data-add="appointments">
+
+                        <span class="quick-icon purple">
+                            <svg class="icon">
+                                <use href="#i-appointments"/>
+                            </svg>
+                        </span>
+
+                        <span>
+                            <strong>Book Appointment</strong>
+                            <small>Schedule a consultation</small>
+                        </span>
+
+                        <svg class="icon quick-arrow">
+                            <use href="#i-arrow"/>
+                        </svg>
+
+                    </button>
+
+                </section>
+
+            </div>
+
+            <section class="panel recent-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3>Recent Appointments</h3>
+                        <p>Latest appointment records</p>
+                    </div>
+
+                    <button class="btn btn-outline"
+                            data-page="appointments">
+
+                        View All
+
+                        <svg class="icon">
+                            <use href="#i-arrow"/>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Medical Doctor</th>
+                                <th>Date &amp; Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recentAppointments"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- =====================================
+             PATIENTS / DOCTORS / APPOINTMENTS
+        ====================================== -->
+
+        <section class="page-section"
+                 id="managementPage">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow"
+                          id="managementEyebrow">
+                        CLINICAL DIRECTORY
+                    </span>
+
+                    <h2 id="managementTitle">
+                        Patient Records
+                    </h2>
+
+                    <p id="managementDescription"></p>
+                </div>
+
+                <button class="btn btn-primary"
+                        id="addRecordButton">
+
+                    <svg class="icon">
+                        <use href="#i-plus"/>
+                    </svg>
+
+                    <span id="addRecordText">
+                        Register Patient
+                    </span>
+
+                </button>
+
+            </div>
+
+            <section class="panel management-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 id="directoryTitle">
+                            Patient Directory
+                        </h3>
+
+                        <p id="recordCount">
+                            0 records
+                        </p>
+                    </div>
+
+                    <div class="view-switch">
+
+                        <button class="view-button active"
+                                data-view="table"
+                                title="Table view"
+                                aria-label="Table view">
+
+                            <svg class="icon">
+                                <use href="#i-list"/>
+                            </svg>
+
+                        </button>
+
+                        <button class="view-button"
+                                data-view="cards"
+                                title="Card view"
+                                aria-label="Card view">
+
+                            <svg class="icon">
+                                <use href="#i-dashboard"/>
+                            </svg>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="toolbar">
+
+                    <div class="search-box">
+
+                        <svg class="icon">
+                            <use href="#i-search"/>
+                        </svg>
+
+                        <input type="search"
+                               id="searchInput"
+                               placeholder="Search records...">
+
+                    </div>
+
+                    <select id="filterSelect"
+                            class="filter-select"
+                            aria-label="Filter records">
+
+                        <option value="">All Records</option>
+
+                    </select>
+
+                    <button class="btn btn-outline"
+                            id="clearFilters">
+
+                        Clear Filters
+
+                    </button>
+
+                </div>
+
+                <div id="recordsContainer"></div>
+
+            </section>
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="main-footer">
+
+            <div>
+
+                <svg class="icon">
+                    <use href="#i-heart"/>
+                </svg>
+
+                CarePoint Clinical Management System
+
+            </div>
+
+            <span>
+                Powered by Flask &amp; Firebase Firestore
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================
+     CRUD MODAL
+========================================= -->
+
+<div class="modal-backdrop"
+     id="modalBackdrop"
+     hidden>
+
+    <section class="modal"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="modalTitle">
+
+        <div class="modal-header">
+
+            <div class="modal-heading">
+
+                <div class="modal-icon"
+                     id="modalIcon">
+
+                    <svg class="icon">
+                        <use href="#i-file"/>
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <h2 id="modalTitle">
+                        Add Record
+                    </h2>
+
+                    <p id="modalDescription">
+                        Complete the required information.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button class="icon-button"
+                    id="closeModal"
+                    aria-label="Close dialog">
+
+                <svg class="icon">
+                    <use href="#i-close"/>
+                </svg>
+
+            </button>
+
+        </div>
+
+        <form id="recordForm">
+
+            <div class="modal-body">
+
+                <div class="form-error"
+                     id="formError"
+                     role="alert"
+                     hidden></div>
+
+                <div class="form-grid"
+                     id="formFields"></div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-outline"
+                        id="cancelModal">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit"
+                        class="btn btn-primary"
+                        id="saveButton">
+
+                    <svg class="icon">
+                        <use href="#i-check"/>
+                    </svg>
+
+                    Save Record
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</div>
+
+
+<!-- =========================================
+     DELETE CONFIRMATION
+========================================= -->
+
+<div class="modal-backdrop"
+     id="confirmBackdrop"
+     hidden>
+
+    <section class="confirm-dialog"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="confirmTitle">
+
+        <div class="danger-icon">
+
+            <svg class="icon">
+                <use href="#i-trash"/>
+            </svg>
+
+        </div>
+
+        <h2 id="confirmTitle">
+            Delete Record?
+        </h2>
+
+        <p id="confirmMessage"></p>
+
+        <div class="confirmation-actions">
+
+            <button class="btn btn-outline"
+                    id="cancelDelete">
+
+                Keep Record
+
+            </button>
+
+            <button class="btn btn-danger"
+                    id="confirmDelete">
+
+                <svg class="icon">
+                    <use href="#i-trash"/>
+                </svg>
+
+                Delete Record
+
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- NOTIFICATION -->
+
+<div class="toast"
+     id="toast"
+     role="status"
+     aria-live="polite">
+
+    <div class="toast-icon"
+         id="toastIcon"></div>
+
+    <div>
+        <strong id="toastTitle">Success</strong>
+        <p id="toastMessage"></p>
+    </div>
+
+    <button class="toast-close"
+            id="closeToast"
+            aria-label="Dismiss notification">
+
+        <svg class="icon">
+            <use href="#i-close"/>
+        </svg>
+
+    </button>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+</html>
